@@ -7,7 +7,23 @@ import random
 import urllib.parse
 
 # Load model
-with open('anime_recommender.pkl', 'rb') as f:
+import zipfile
+import os
+
+# Path to the ZIP file
+zip_path = "anime_recommender.zip"
+
+# Folder to extract to
+extract_folder = "extracted_model"
+
+# Unzip
+with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+    zip_ref.extractall(extract_folder)
+
+# Full path to the .pkl file
+pkl_path = os.path.join(extract_folder, "anime_recommender.pkl")
+
+with open(pkl_path, 'rb') as f:
     model = pickle.load(f)
 
 anime_df = model['anime']
